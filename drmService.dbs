@@ -1,0 +1,21 @@
+<data name="drmService" serviceNamespace="com.example" transports="http https local">
+   <config enableOData="false" id="SampleConnection">
+      <property name="driverClassName">com.mysql.jdbc.Driver</property>
+      <property name="url">jdbc:mysql://localhost:3306/DRM</property>
+      <property name="username">root</property>
+      <property name="password">root</property>
+   </config>
+   <query id="addQuery" useConfig="SampleConnection">
+      <sql>INSERT INTO DATA_LOG (ApplianceName,RegisterName,Value) VALUES (:applianceName,:registerName,:value);</sql>
+      <param name="applianceName" sqlType="STRING"/>
+      <param name="registerName" sqlType="STRING"/>
+      <param name="value" sqlType="INTEGER"/>
+   </query>
+   <resource method="POST" path="add">
+      <call-query href="addQuery">
+         <with-param name="applianceName" query-param="applianceName"/>
+         <with-param name="registerName" query-param="registerName"/>
+         <with-param name="value" query-param="value"/>
+      </call-query>
+   </resource>
+</data>
